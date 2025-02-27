@@ -1,7 +1,7 @@
-const Koa = require('koa');
-const cors = require('@koa/cors');
-const fs = require('fs');
-const path = require('path');
+import Koa from 'koa';
+import cors from '@koa/cors';
+import * as fs from 'fs';
+import * as path from 'path';
 const app = new Koa();
 const port = 1337;
 
