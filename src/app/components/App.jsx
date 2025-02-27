@@ -15,13 +15,11 @@ const App = () => {
   const [activeBox, setActiveBox] = useState(null);
   const [secretMap, setSecretMap] = useState({});
 
-  const url = `/api/msgService`;
-
   // Fetch the message when the component mounts
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await fetch(url);
+        const response = await fetch('http://localhost:1337/hidden-message');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -106,7 +104,7 @@ const App = () => {
 
   const handleReset = async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch('http://localhost:1337/hidden-message');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
