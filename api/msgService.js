@@ -35,3 +35,7 @@ app.use(async ctx => {
 app.listen(port, () => {
   console.log(`HTTP server running on port ${port}`);
 });
+
+export default function handler(req, res) {
+  res.status(200).json({message: 'test'})
+}
