@@ -1,0 +1,31 @@
+{
+    "name": "cryptogram-game",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "service": "node src/service/msgService.js"
+    },
+    "dependencies": {
+        "next": "15.1.7",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "@koa/cors": "^5.0.0",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "eslint": "^9",
+        "eslint-config-next": "15.1.7",
+        "koa": "^2.15.4",
+        "typescript": "^5"
+    },
+    "prettier": {
+        "tabWidth": 4
+    }
+}
