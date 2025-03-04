@@ -19,6 +19,7 @@ const App = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
+        // Simulate a delay to mimic server response time
         const response = await fetch('http://localhost:1337/hidden-message');
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -83,6 +84,12 @@ const App = () => {
     }).join('');
   };
 
+  /**
+  * Generates a secret map that assigns each letter of the English alphabet
+  * (A-Z) to a unique number between 1 and 26. The numbers are shuffled randomly
+  * to ensure that each letter is mapped to a different number each time the
+  * function is called.
+  */
   const generateSecretMap = () => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     const numbers = Array.from({ length: 26 }, (_, i) => i + 1);
@@ -97,11 +104,17 @@ const App = () => {
       map[letter] = numbers[index];
     });
 
-    console.log(JSON.stringify(map));
-
     return map;
   };
 
+  /**
+  * Asynchronously handles the reset operation by fetching a hidden message from a specified URL.
+  * 
+  * This function performs a network request to retrieve a message from service.
+  * Upon a successful response, it converts the message to uppercase and updates the state with this message.
+  * If the network request fails or the response is not successful, it logs the error to the console and sets
+  * the message state to an empty string as a fallback.
+  */
   const handleReset = async () => {
     try {
       const response = await fetch('http://localhost:1337/hidden-message');
