@@ -1,0 +1,23 @@
+.keyboard-button {
+    flex: 1;
+    max-width: 2rem;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .keyboard-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .keyboard-button:active {
+    background-color: #d0d0d0;
+  }
+  

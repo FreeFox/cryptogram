@@ -2,32 +2,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import GameBoard from './GameBoard';
-import Keyboard from './Keyboard';
 import Controls from './Controls';
 import Message from './Message';
-import { getFunctions, httpsCallable } from "firebase/functions";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { httpsCallable } from "firebase/functions";
+import { functions } from '../firebase/Firebase';
+
+// Use React.lazy to load components lazily
+const GameBoard = React.lazy(() => import('./GameBoard'));
+const Keyboard = React.lazy(() => import('./Keyboard'));
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAqP9Kx_Iy0OdKEcGefWqurCiaLNvucDwo",
-  authDomain: "cryptogram-service.firebaseapp.com",
-  projectId: "cryptogram-service",
-  storageBucket: "cryptogram-service.firebasestorage.app",
-  messagingSenderId: "865463059773",
-  appId: "1:865463059773:web:5c1c5d71ee491b67eb7154",
-  measurementId: "G-RL5R2QELGJ"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const functions = getFunctions(); // Initialize Firebase functions
 
 const getRandomText = httpsCallable(functions, 'getRandomText');
 
@@ -159,30 +144,30 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="top-bar">
-        <div className="message">
-          <Message errors={errors} gameOver={gameOver} />
-        </div>
-        <div className="controls">
-          <Controls onReset={handleReset} />
-        </div>
+        <Message errors={errors} gameOver={gameOver} />
+        <Controls onReset={handleReset} />
       </div>
-      <GameBoard
-        message={message}
-        scrambledMessage={scrambledMessage}
-        activeBox={activeBox}
-        setActiveBox={setActiveBox}
-        secretMap={secretMap}
-      />
-      <Keyboard
-        activeBox={activeBox}
-        message={message}
-        scrambledMessage={scrambledMessage}
-        setScrambledMessage={setScrambledMessage}
-        errors={errors}
-        setErrors={setErrors}
-        setGameOver={setGameOver}
-        setActiveBox={setActiveBox}
-      />
+      <Suspense fallback={<div>Loading GameBoard...</div>}>
+        <GameBoard
+          message={message}
+          scrambledMessage={scrambledMessage}
+          activeBox={activeBox}
+          setActiveBox={setActiveBox}
+          secretMap={secretMap}
+        />
+      </Suspense>
+      <Suspense fallback={<div>Loading Keyboard...</div>}>
+        <Keyboard
+          activeBox={activeBox}
+          message={message}
+          scrambledMessage={scrambledMessage}
+          setScrambledMessage={setScrambledMessage}
+          errors={errors}
+          setErrors={setErrors}
+          setGameOver={setGameOver}
+          setActiveBox={setActiveBox}
+        />
+      </Suspense>
     </div>
   );
 

@@ -1,5 +1,6 @@
 // components/KeyboardButton.js
 import React from 'react';
+import kbStyles from '../styles/KeyboardButton.module.css';
 
 type KeyboardButtonProps = {
   letter: string;
@@ -8,7 +9,7 @@ type KeyboardButtonProps = {
 
 const KeyboardButton : React.FC<KeyboardButtonProps> = ({ letter, onClick }) => {
   return (
-    <button className="keyboard-button" onClick={onClick}>
+    <button className={kbStyles["keyboard-button"]} onClick={onClick}>
       {letter}
     </button>
   );

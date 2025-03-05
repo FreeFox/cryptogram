@@ -1,6 +1,7 @@
 // src/app/components/GameBoard.tsx
 import React from "react";
 import LetterBox from "./LetterBox";
+import gbStyles from "../styles/GameBoard.module.css";
 
 type GameBoardProps = {
   message: string;
@@ -22,8 +23,8 @@ const GameBoard : React.FC<GameBoardProps> = ({
   let currentGlobalIndex = 0; // Initialize a counter for the global index
 
   return (
-    <div className="gameboard-container">
-      <div className="gameboard">
+    <div className={gbStyles["gameboard-container"]}>
+      <div className={gbStyles.gameboard}>
         {words.map((word, wordIndex) => {
           // Add a space between words, except for the first word
           if (wordIndex > 0) {
@@ -31,7 +32,7 @@ const GameBoard : React.FC<GameBoardProps> = ({
           }
 
           return (
-            <div key={`word-${wordIndex}`} className="word">
+            <div key={`word-${wordIndex}`} className={gbStyles.word}>
               {word.split("").map((char, index) => {
                 // Use a combination of wordIndex and index to ensure uniqueness
                 const uniqueKey = `word-${wordIndex}-char-${index}`;

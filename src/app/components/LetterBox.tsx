@@ -1,5 +1,6 @@
 // src/app/components/LetterBox.jsx
 import React from 'react';
+import lbStyles from '../styles/LetterBox.module.css';
 
 type LetterBoxProps = {
   char: string;
@@ -14,14 +15,14 @@ const LetterBox : React.FC<LetterBoxProps> = ({ char, index, activeBox, setActiv
   const handleClick = () => setActiveBox(index);
 
   return (
-    <div className="letter-box-container">
+    <div className={lbStyles["letter-box-container"]}>
       <div 
-        className={`letter-box ${isActive ? 'active' : ''}`} 
+        className={`${lbStyles["letter-box"]} ${isActive ? lbStyles["active"] : ""}`} 
         onClick={handleClick}
       >
-        <div className="char">{char !== '_' ? char : ''}</div>
+        <div className={lbStyles.char}>{char !== '_' ? char : ''}</div>
       </div>
-      <div className="index">{letterIndex}</div>
+      <div className={lbStyles.index}>{letterIndex}</div>
     </div>
   );
 };

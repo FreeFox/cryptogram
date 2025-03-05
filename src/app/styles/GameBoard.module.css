@@ -1,0 +1,33 @@
+.gameboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.gameboard {
+    display: flex; /* Use flexbox for the gameboard layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Allow the gameboard to take full width of the container */
+    max-width: 800px; /* Optional: Set a max-width if needed */
+    border: 1px solid #ccc; /* Optional: Add a border for visual separation */
+    padding: 10px; /* Optional: Add padding inside the gameboard */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    font-size: x-large; /* Set font size for the gameboard */
+}
+
+.word {
+    display: flex;
+    white-space: nowrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 0.75rem;
+}
+
+.word > span {
+    margin-left: 0.5rem;
+}
