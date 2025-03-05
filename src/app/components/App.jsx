@@ -6,6 +6,40 @@ import GameBoard from './GameBoard';
 import Keyboard from './Keyboard';
 import Controls from './Controls';
 import Message from './Message';
+import { getFunctions, httpsCallable } from "firebase/functions";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAqP9Kx_Iy0OdKEcGefWqurCiaLNvucDwo",
+  authDomain: "cryptogram-service.firebaseapp.com",
+  projectId: "cryptogram-service",
+  storageBucket: "cryptogram-service.firebasestorage.app",
+  messagingSenderId: "865463059773",
+  appId: "1:865463059773:web:5c1c5d71ee491b67eb7154",
+  measurementId: "G-RL5R2QELGJ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const functions = getFunctions(); // Initialize Firebase functions
+
+const getRandomText = httpsCallable(functions, 'getRandomText');
+
+async function callRandomText() {
+  try {
+    const result = await getRandomText();
+
+    return result.data.text;
+  } catch (error) {
+    console.error("Error calling function:", error);
+  }
+}
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -21,13 +55,8 @@ const App = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        // Simulate a delay to mimic server response time
-        const response = await fetch(hiddenMessageServiceURL);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setMessage(data.message.toUpperCase());
+        const data = await callRandomText();
+        setMessage(data.toUpperCase());
       } catch (error) {
         console.error('Error fetching message:', error);
         setMessage('');
@@ -119,12 +148,8 @@ const App = () => {
   */
   const handleReset = async () => {
     try {
-      const response = await fetch(hiddenMessageServiceURL);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setMessage(data.message.toUpperCase());
+      const data = await callRandomText();
+      setMessage(data.toUpperCase());
     } catch (error) {
       console.error('Error fetching message:', error);
       setMessage(''); // Fallback message in case of error
@@ -162,31 +187,5 @@ const App = () => {
   );
 
 };
-
-/**
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAqP9Kx_Iy0OdKEcGefWqurCiaLNvucDwo",
-  authDomain: "cryptogram-service.firebaseapp.com",
-  projectId: "cryptogram-service",
-  storageBucket: "cryptogram-service.firebasestorage.app",
-  messagingSenderId: "865463059773",
-  appId: "1:865463059773:web:5c1c5d71ee491b67eb7154",
-  measurementId: "G-RL5R2QELGJ"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
- */
 
 export default App;
