@@ -1,7 +1,7 @@
 // src/app/components/App.jsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Controls from './Controls';
 import Message from './Message';
 import { httpsCallable } from "firebase/functions";
